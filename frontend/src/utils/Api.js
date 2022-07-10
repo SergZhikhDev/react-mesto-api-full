@@ -78,17 +78,10 @@ class Api {
   }
 }
 
-// export const api = new Api({
-//   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-39",
-//   headers: {
-//     authorization: "c95f4798-d1a8-4283-9bd6-480d270dfc12",
-//     "Content-Type": "application/json",
-//   },
-// });
 export const api = new Api({
-  baseUrl: " http://nav39.students.nomoredomainssbs.ru",
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-39",
   headers: {
-    authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyY2E1OGUwNTVjYTMzZDhkNDAyYTY5ZiIsImlhdCI6MTY1NzQyODI1MSwiZXhwIjoxNjU4MDMzMDUxfQ.G1PIAbySETb4ftoNDM2xWlMhZxRQC8K2MoWrv9gks3I",
+    authorization: "c95f4798-d1a8-4283-9bd6-480d270dfc12",
     "Content-Type": "application/json",
   },
 });
