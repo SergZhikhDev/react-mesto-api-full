@@ -2,6 +2,7 @@ export const BASE_URL = "https://front-szh.students.nomorepartiesxyz.ru";
 export let error;
 
 function checkResponse(res) {
+  console.log('res', res)
   return res.ok ? res.json() : Promise.reject(error);
 }
 

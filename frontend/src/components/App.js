@@ -65,14 +65,14 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsSafetyPopup(false);
     setSelectedCard({ isOpen: false });
-       setIsInfoTooltipOpen(false);
+    setIsInfoTooltipOpen(false);
   }
 
   // function closeInfoTooltip() {
   //   if (registered) {
   //     history.push("/sign-in");
   //   }
- 
+
   // }
 
   function handleUpdateUser({ name, about }) {
@@ -232,8 +232,9 @@ function App() {
           console.log(`Ошибка: ${err}`);
         });
     }
+    // eslint-disable-next-line
   }, [loggedIn]);
-  
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">

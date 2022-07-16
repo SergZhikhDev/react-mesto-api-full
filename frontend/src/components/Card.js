@@ -13,7 +13,6 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   ${isLiked ? "element__heart_active" : ""}`;
 
   function handleClick() {
-    console.log(currentUser._id, card.owner)
     onCardClick(card);
   }
 
