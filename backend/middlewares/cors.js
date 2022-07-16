@@ -1,6 +1,7 @@
 const allowedCors = ['https://back-szh.students.nomorepartiesxyz.ru',
   'http://back-szh.students.nomorepartiesxyz.ru',
   'https://front-szh.students.nomorepartiesxyz.ru',
+  'https://front-szh.students.nomorepartiesxyz.ru',
   'http://front-szh.students.nomorepartiesxyz.ru',
   'localhost:3000',
   'http://localhost:3000',
