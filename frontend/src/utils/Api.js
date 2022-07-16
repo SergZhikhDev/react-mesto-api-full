@@ -82,7 +82,7 @@ class Api {
 export const api = new Api({
   // baseUrl: "https://mesto.nomoreparties.co/v1/cohort-39",
  
-  baseUrl: "https://back-szh.students.nomorepartiesxyz.ru/api",
+  baseUrl: "https://front-szh.students.nomorepartiesxyz.ru/api",
   headers: {
     authorization: localStorage.getItem("token"),
     "Content-Type": "application/json",

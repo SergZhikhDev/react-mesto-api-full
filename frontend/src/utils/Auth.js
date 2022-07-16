@@ -1,4 +1,4 @@
-export const BASE_URL = "https://back-szh.students.nomorepartiesxyz.ru";
+export const BASE_URL = "https://front-szh.students.nomorepartiesxyz.ru";
 
 const checkResponse = (res) => {
   if (res.ok) {
