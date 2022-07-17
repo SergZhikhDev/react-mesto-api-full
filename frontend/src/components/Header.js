@@ -1,4 +1,4 @@
-import logo from "../images/logo.svg";
+import logo from "../logo.svg";
 import NavBar from "./NavBar";
 function Header({ loggedIn, handleSignOut, userEmail }) {
   return (
