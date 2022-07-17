@@ -103,7 +103,6 @@ function App() {
     api
       .addCard({ name, link })
       .then((newCard) => {
-        console.log(newCard);
         setCards([newCard, ...cards]);
         closeAllPopups();
       })
@@ -119,10 +118,8 @@ function App() {
       .changeLikeCardStatus(card._id, !isLiked)
 
       .then((newCard) => {
-        console.log(10, card._id);
-        setCards(
-          (state) => state.map((c) => (c._id === card._id ? newCard.data : c)),
-          console.log(10, newCard.data, isLiked)
+        setCards((state) =>
+          state.map((c) => (c._id === card._id ? newCard.data : c))
         );
       })
       .catch((err) => {
@@ -172,6 +169,7 @@ function App() {
     return mestoAuth
       .authorize({ password, email })
       .then((data) => {
+        window.location.reload();
         if (data.token) {
           localStorage.setItem("token", data.token);
           tokenCheck();
@@ -223,17 +221,15 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // if (loggedIn) {
-      Promise.all([api.getProfile(), api.getInitialCards()])
-        .then(([user, cards]) => {
-          setCurrentUser(user);
-          history.push("/");
-          setCards(cards.reverse());
-        })
-        .catch((err) => {
-          console.log(`Ошибка: ${err}`);
-        });
-    // }
+    Promise.all([api.getProfile(), api.getInitialCards()])
+      .then(([user, cards]) => {
+        setCurrentUser(user);
+        history.push("/");
+        setCards(cards.reverse());
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
     // eslint-disable-next-line
   }, [loggedIn]);
 

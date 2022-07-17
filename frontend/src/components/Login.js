@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Login({handleLogin}) {
+function Login({ handleLogin }) {
   const [formParams, setFormParams] = React.useState({
     email: "",
     password: "",
@@ -17,9 +17,9 @@ function Login({handleLogin}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     let { password, email } = formParams;
     handleLogin({ password, email });
+   
   };
 
   return (
@@ -32,7 +32,6 @@ function Login({handleLogin}) {
         name="sign-in"
         className="form form__type_sign form__type_sign_in"
         onSubmit={handleSubmit}
-    
       >
         <fieldset className="form__input-container">
           <input

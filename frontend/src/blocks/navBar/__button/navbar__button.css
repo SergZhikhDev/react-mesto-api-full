@@ -1,24 +1,22 @@
-.navbar__button{
+.navbar__button {
   margin-left: 24px;
-  font-family: 'Inter';
-font-style: normal;
-font-weight: 400;
-font-size: 18px;
-line-height: 1.22;
-color: #fff;
-background: #000;
-border: none;
-cursor: pointer;
-
-
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.22;
+  color: #fff;
+  background: #000;
+  border: none;
+  cursor: pointer;
 }
 .navbar__button:hover {
   opacity: 0.6;
-  transition: opacity .3s linear;
+  transition: opacity 0.3s linear;
 }
 @media screen and (max-width: 768px) {
-  .navbar__button{
- align-self: flex-end;
+  .navbar__button {
+    align-self: flex-end;
     margin-bottom: 20px;
-     }
+  }
 }
