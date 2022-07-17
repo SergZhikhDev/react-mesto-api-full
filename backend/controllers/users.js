@@ -8,7 +8,6 @@ const MONGO_DUPLICATE_ERROR_CODE = 11000;
 const SALT_ROUNDS = 10;
 
 const BadRequestError = require('../utils/errorcodes/bad-request-error');
-const BadRequireToken = require('../utils/errorcodes/bad-require-token');
 const NotFoundError = require('../utils/errorcodes/not-found-error');
 const NotUniqueEmailError = require('../utils/errorcodes/not-unique-email');
 const NotDataError = require('../utils/errorcodes/not-pass-or-email');
@@ -53,11 +52,9 @@ module.exports.getUserById = (req, res, next) => {
 
 module.exports.createUser = ((req, res, next) => {
   const {
+    // eslint-disable-next-line no-unused-vars
     name, about, avatar, email, password,
   } = req.body;
-  if (!email || !password) {
-    throw new BadRequestError();
-  }
   bcrypt
     .hash(password, SALT_ROUNDS)
     .then((hash) => User.create({
@@ -87,9 +84,7 @@ module.exports.createUser = ((req, res, next) => {
 
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
-  if (!email || !password) {
-    throw new BadRequireToken();
-  }
+
   User.findUserByCredentials(email, password)
     .then(([user, isPasswordCorrect]) => {
       if (!isPasswordCorrect) {
