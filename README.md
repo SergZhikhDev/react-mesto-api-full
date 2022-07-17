@@ -15,3 +15,5 @@
 Публичный IPv4 51.250.89.233
 
 Войти на сервер sergdev@51.250.89.233sergdev@51.250.89.233
+
+[Ссылка на gh-pages](https://sergzhikhdev.github.io/react-mesto-api-full/)
