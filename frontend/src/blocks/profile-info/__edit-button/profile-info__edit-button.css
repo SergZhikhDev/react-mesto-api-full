@@ -1,4 +1,6 @@
 .profile-info__edit-button {
+  position: absolute;
+  right: 25px;
   margin: 0;
   padding: 7px;
   width: 24px;
@@ -15,9 +17,8 @@
   opacity: 0.6;
 }
 
-@media screen and (max-width: 801px) {
+@media screen and (max-width: 1024px) {
   .profile-info__edit-button {
-    position: absolute;
     top: 36px;
     right: 19px;
     z-index: 2;

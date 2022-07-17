@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -7,6 +8,7 @@ const routesUser = require('./routes/users');
 const routesCard = require('./routes/cards');
 const { login, createUser } = require('./controllers/users');
 const { isAuthorized } = require('./middlewares/auth');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { errorHandler } = require('./middlewares/error-handler');
 
 const { LinksRegExp } = require('./utils/all-reg-exp');
@@ -21,8 +23,14 @@ app.use(cors);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(requestLogger);
 app.use('/api/users', isAuthorized, routesUser);
 app.use('/api/cards', isAuthorized, routesCard);
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 app.post('/api/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'ru'] } }),
@@ -38,6 +46,7 @@ app.post('/api/signup', celebrate({
     password: Joi.string().min(2).required(),
   }),
 }), createUser);
+app.use(errorLogger);
 
 app.use((req, res, next) => {
   next(new NotFoundError());

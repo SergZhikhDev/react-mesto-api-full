@@ -1,11 +1,30 @@
-.navbar{
-margin: 0;
-padding: 0;
-/* z-index: 2; */
-position: absolute;
-right: 0;
-top: 5px;
+.navbar {
+  margin: 0;
+  padding: 0;
+  /* z-index: 2; */
+  position: absolute;
+  right: 0;
+  top: 5px;
   display: flex;
   list-style: none;
-  align-items: center;         
+  align-items: center;
+  align-self: flex-end;
+}
+
+@media screen and (max-width: 768px) {
+  .navbar {
+    position: relative;
+    display: flex;
+    flex-direction: column-reverse;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+     }
+}
+
+@media screen and (max-width: 501px) {
+  .navbar {
+    margin-right: 27px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+     }
 }

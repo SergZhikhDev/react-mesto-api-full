@@ -103,6 +103,7 @@ function App() {
     api
       .addCard({ name, link })
       .then((newCard) => {
+        console.log(newCard);
         setCards([newCard, ...cards]);
         closeAllPopups();
       })
@@ -112,14 +113,16 @@ function App() {
   }
 
   function handleCardLike(card) {
-    let isLiked = card.likes.some((i) => i._id === currentUser._id);
+    let isLiked = card.likes.some((i) => i === currentUser._id);
 
     api
       .changeLikeCardStatus(card._id, !isLiked)
 
       .then((newCard) => {
-        setCards((state) =>
-          state.map((c) => (c._id === card._id ? newCard : c))
+        console.log(10, card._id);
+        setCards(
+          (state) => state.map((c) => (c._id === card._id ? newCard.data : c)),
+          console.log(10, newCard.data, isLiked)
         );
       })
       .catch((err) => {
@@ -220,18 +223,17 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (loggedIn) {
-      Promise.all([api.getInitialCards(), api.getProfile()])
-        .then(([cards, user]) => {
-          setCards(cards);
+    // if (loggedIn) {
+      Promise.all([api.getProfile(), api.getInitialCards()])
+        .then(([user, cards]) => {
           setCurrentUser(user);
           history.push("/");
+          setCards(cards.reverse());
         })
-
         .catch((err) => {
           console.log(`Ошибка: ${err}`);
         });
-    }
+    // }
     // eslint-disable-next-line
   }, [loggedIn]);
 

@@ -45,6 +45,6 @@ module.exports.cardLinkValidator = [
     protocols: true,
     require_valid_protocol: true,
     validate_length: true,
-    message: 'Поле "name" должно содержать URL-ссылку',
+    message: 'Поле "link" должно содержать URL-ссылку',
   }),
 ];

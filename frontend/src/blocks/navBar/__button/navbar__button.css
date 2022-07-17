@@ -16,3 +16,9 @@ cursor: pointer;
   opacity: 0.6;
   transition: opacity .3s linear;
 }
+@media screen and (max-width: 768px) {
+  .navbar__button{
+ align-self: flex-end;
+    margin-bottom: 20px;
+     }
+}

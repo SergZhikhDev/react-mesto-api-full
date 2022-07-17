@@ -31,12 +31,12 @@ function Main({
 
         <div className="profile-info">
           <h1 className="profile-info__userName">{currentUser.name}</h1>
+          <p className="profile-info__about-self">{currentUser.about}</p>
           <button
             type="button"
             className="openPopupBtn profile-info__edit-button"
             onClick={onEditProfile}
           ></button>
-          <p className="profile-info__about-self">{currentUser.about}</p>
         </div>
         <button
           type="button"

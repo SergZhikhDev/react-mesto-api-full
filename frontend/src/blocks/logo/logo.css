@@ -1,6 +1,7 @@
 .logo {
-  margin-left: 0;
-  margin-right: auto;
+  /* margin-left: 0; */
+  margin: 0;
+  /* margin-right: auto; */
   padding: 0;
   width: 142px;
   height: 33px;
@@ -14,5 +15,3 @@
     height: 24.4px;
   }
 }
-
-

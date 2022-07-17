@@ -1,7 +1,7 @@
 .profile-info__about-self {
   margin: 0;
   padding: 0;
-  width: 100%;
+  width: calc(100% - 20px);
   font-family: inherit;
   font-style: normal;
   font-weight: normal;
@@ -14,7 +14,6 @@
 
 @media screen and (max-width: 801px) {
   .profile-info__about-self {
-    margin-bottom: 31px;
     text-align: center;
   }
 }

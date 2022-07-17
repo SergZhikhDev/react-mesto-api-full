@@ -2,6 +2,8 @@ const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 const { LinksRegExp } = require('../utils/all-reg-exp');
 
+console.log(LinksRegExp);
+
 const {
   getCards,
   createCard,
@@ -15,7 +17,7 @@ router.get('/', getCards);
 router.post('/', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30).required(),
-    link: Joi.string().required().pattern(LinksRegExp),
+    link: Joi.string().required().pattern(/^http(s|):\/\/(www.|)((\w+|\d+)(-|\.))+[a-z]{2,3}(\S+|)(#| +|)$/i),
   }),
 }), createCard);
 
