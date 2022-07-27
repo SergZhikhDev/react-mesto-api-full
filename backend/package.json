@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/SergZhikhDev/express-mesto-gha/issues"
   },
-  "homepage": "https://github.com/SergZhikhDev/express-mesto-gha#readme",
+  "homepage": "https://front-szh.students.nomorepartiesxyz.ru/sign-in",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",
