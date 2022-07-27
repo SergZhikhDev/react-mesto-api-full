@@ -111,6 +111,22 @@ function App() {
       });
   }
 
+  // function handleCardLike(card) {
+  //   let isLiked = card.likes.some((i) => i === currentUser._id);
+
+  //   api
+  //     .changeLikeCardStatus(card._id, !isLiked)
+
+  //     .then((newCard) => {
+  //       setCards((state) =>
+  //         state.map((c) => (c._id === card._id ? newCard.data : c))
+  //       );
+  //     })
+  //     .catch((err) => {
+  //       console.log(`Ошибка: ${err}`);
+  //     });
+  // }
+
   function handleCardLike(card) {
     let isLiked = card.likes.some((i) => i === currentUser._id);
 
@@ -169,7 +185,6 @@ function App() {
     return mestoAuth
       .authorize({ password, email })
       .then((data) => {
-        window.location.reload();
         if (data.token) {
           localStorage.setItem("token", data.token);
           tokenCheck();
@@ -205,7 +220,8 @@ function App() {
           let userData = res.email;
           setLoggedIn(true);
           setUserEmail(userData);
-        }
+          setCurrentUser(res);
+            }
       });
     }
   };
@@ -223,7 +239,7 @@ function App() {
   useEffect(() => {
     Promise.all([api.getProfile(), api.getInitialCards()])
       .then(([user, cards]) => {
-        setCurrentUser(user);
+        tokenCheck();
         history.push("/");
         setCards(cards.reverse());
       })
