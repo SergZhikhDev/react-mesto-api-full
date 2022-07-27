@@ -30,3 +30,5 @@ app.post('/api/signup', celebrate({
     password: Joi.string().required(),
   }),
 }), createUser);
+
+module.exports = app;
