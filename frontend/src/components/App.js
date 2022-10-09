@@ -188,6 +188,7 @@ function App() {
         if (data.token) {
           localStorage.setItem("token", data.token);
           tokenCheck();
+          setLoggedIn(true);
         }
       })
 
@@ -202,7 +203,8 @@ function App() {
       .register({ password, email })
 
       .then(() => {
-        history.push("/sign-in");
+        handleLogin({password,email})
+        // history.push("/sign-in");
         success();
       })
 

@@ -7,6 +7,8 @@ const allowedCors = [
   'localhost:3000',
   'http://localhost:3000',
   'https://localhost:3000',
+  'http://localhost:3001',
+  'https://localhost:3001',
 ];
 // eslint-disable-next-line consistent-return
 module.exports = (req, res, next) => {
