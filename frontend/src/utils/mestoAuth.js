@@ -1,5 +1,5 @@
-// export const BASE_URL = "https://front-szh.students.nomorepartiesxyz.ru";
-export const BASE_URL = "http://localhost:3006";
+export const BASE_URL = "http://front-szh.students.nomorepartiesxyz.ru";
+// export const BASE_URL = "http://localhost:3006";
 export let error;
 
 function checkResponse(res) {

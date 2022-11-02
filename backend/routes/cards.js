@@ -1,8 +1,5 @@
 const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
-const { LinksRegExp } = require('../utils/all-reg-exp');
-
-console.log(LinksRegExp);
 
 const {
   getCards,

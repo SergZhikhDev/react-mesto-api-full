@@ -10,7 +10,7 @@ const { errorHandler } = require('./middlewares/error-handler');
 const routes = require('./routes/index');
 const NotFoundError = require('./utils/errorcodes/not-found-error');
 
-const { PORT = 3006 } = process.env;
+const { PORT = 3000 } = process.env;
 const app = express();
 
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb');

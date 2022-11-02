@@ -1,14 +1,9 @@
 const allowedCors = [
   'http://front-szh.students.nomorepartiesxyz.ru',
   'https://front-szh.students.nomorepartiesxyz.ru',
-  'https://front-szh.students.nomorepartiesxyz.ru',
-  'https://front-szh.students.nomorepartiesxyz.ru',
-  'https://sergzhikhdev.github.io',
-  'localhost:3000',
   'http://localhost:3000',
   'https://localhost:3000',
-  'http://localhost:3001',
-  'https://localhost:3001',
+
 ];
 // eslint-disable-next-line consistent-return
 module.exports = (req, res, next) => {
