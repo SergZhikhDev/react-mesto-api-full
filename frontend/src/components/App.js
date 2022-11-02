@@ -204,7 +204,7 @@ function App() {
 
       .then(() => {
         handleLogin({password,email})
-        // history.push("/sign-in");
+        history.push("/sign-in");
         success();
       })
 
