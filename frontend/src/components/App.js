@@ -1,39 +1,50 @@
 import { useState, useEffect } from "react";
 import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import Header from "./Header";
 import Main from "./Main";
+import Login from "./Login";
+import Header from "./Header";
 import Footer from "./Footer";
+import api from "../utils/Api";
+import Register from "./Register";
+import ImagePopup from "./ImagePopup";
+import InfoTooltip from "./InfoTooltip";
+import { error } from "../utils/mestoAuth";
 import AddPlacePopup from "./AddPlacePopup ";
+import ProtectedRoute from "./ProtectedRoute";
+import noImage from "../images/No-symbol.svg";
+import yesImage from "../images/Yes-symbol.svg";
+import * as mestoAuth from "../utils/mestoAuth";
 import EditAvatarPopup from "./EditAvatarPopup";
 import EditProfilePopup from "./EditProfilePopup";
 import SafetyIssuePopup from "./SafetyIssuePopup";
-import ImagePopup from "./ImagePopup";
-import Login from "./Login";
-import Register from "./Register";
-import InfoTooltip from "./InfoTooltip";
-import ProtectedRoute from "./ProtectedRoute";
-import * as mestoAuth from "../utils/mestoAuth";
-import yesImage from "../images/Yes-symbol.svg";
-import noImage from "../images/No-symbol.svg";
-import { error } from "../utils/mestoAuth";
-import api from "../utils/Api";
 
 function App() {
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
-  const [isSafetyPopupOpen, setIsSafetyPopup] = useState(false);
-  const [selectedCard, setSelectedCard] = useState({ isOpen: false });
-  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
-  const [registered, setRegistered] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [userEmail, setUserEmail] = useState("");
-
-  const [currentUser, setCurrentUser] = useState({});
+  const history = useHistory();
   const [cards, setCards] = useState([]);
   const [cardId, setCardId] = useState("");
-  const history = useHistory();
+  const [userEmail, setUserEmail] = useState("");
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState({});
+  const [registered, setRegistered] = useState(false);
+  const [isSafetyPopupOpen, setIsSafetyPopup] = useState(false);
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState({ isOpen: false });
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+
+  const yesSymbol = {
+    symbol: currentUser.avatar ? currentUser.avatar : yesImage,
+    text: error === 200 ?
+      "Вы успешно зарегистрировались!" :
+      `Добро пожаловать `,
+    subtitle: `${currentUser.name}`
+  };
+  const noSymbol = {
+    symbol: noImage,
+    text: (error ?? `Нет сети`),
+  };
 
   function handleAvatarUpdateClick() {
     setIsEditAvatarPopupOpen(true);
@@ -67,13 +78,6 @@ function App() {
     setSelectedCard({ isOpen: false });
     setIsInfoTooltipOpen(false);
   }
-
-  // function closeInfoTooltip() {
-  //   if (registered) {
-  //     history.push("/sign-in");
-  //   }
-
-  // }
 
   function handleUpdateUser({ name, about }) {
     api
@@ -111,22 +115,6 @@ function App() {
       });
   }
 
-  // function handleCardLike(card) {
-  //   let isLiked = card.likes.some((i) => i === currentUser._id);
-
-  //   api
-  //     .changeLikeCardStatus(card._id, !isLiked)
-
-  //     .then((newCard) => {
-  //       setCards((state) =>
-  //         state.map((c) => (c._id === card._id ? newCard.data : c))
-  //       );
-  //     })
-  //     .catch((err) => {
-  //       console.log(`Ошибка: ${err}`);
-  //     });
-  // }
-
   function handleCardLike(card) {
     let isLiked = card.likes.some((i) => i === currentUser._id);
 
@@ -143,22 +131,6 @@ function App() {
       });
   }
 
-  function changeImage() {
-    const yesSymbol = {
-      symbol: yesImage,
-      text: "Вы успешно зарегистрировались!",
-    };
-    const noSymbol = {
-      symbol: noImage,
-      text: `Что-то пошло не так!
-    Попробуйте ещё раз.`,
-    };
-    let image = {};
-    registered ? (image = yesSymbol) : (image = noSymbol);
-
-    return image;
-  }
-
   function handleCardDelete() {
     api
       .deleteCard(cardId)
@@ -168,12 +140,15 @@ function App() {
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
+
       });
   }
 
   const success = () => {
     setRegistered(true);
     setIsInfoTooltipOpen(true);
+    setTimeout(closeAllPopups, 3000);
+
   };
 
   const failure = () => {
@@ -181,52 +156,34 @@ function App() {
     setIsInfoTooltipOpen(true);
   };
 
-  const handleLogin = ({ password, email }) => {
-    return mestoAuth
-      .authorize({ password, email })
-      .then((data) => {
-        if (data.token) {
-          localStorage.setItem("token", data.token);
-          tokenCheck();
-          setLoggedIn(true);
-        }
-      })
+  const handleLogin = async ({ password, email }) => {
+    try {
+      const data = await mestoAuth
+        .authorize({ password, email });
+      localStorage.setItem("token", data.token);
+      success();
+      setLoggedIn(true)
 
-      .catch(() => {
-        console.log(error);
-        failure();
-      });
-  };
-
-  const handleRegister = ({ password, email }) => {
-    return mestoAuth
-      .register({ password, email })
-
-      .then(() => {
-        handleLogin({password,email})
-        history.push("/sign-in");
-        success();
-      })
-
-      .catch(() => {
-        console.log(error);
-        failure();
-      });
-  };
-
-  const tokenCheck = () => {
-    let jwt = localStorage.getItem("token");
-    if (jwt) {
-      mestoAuth.content(jwt).then((res) => {
-        if (res) {
-          let userData = res.email;
-          setLoggedIn(true);
-          setUserEmail(userData);
-          setCurrentUser(res);
-            }
-      });
+    } catch {
+      failure();
     }
   };
+
+  const handleRegister = async ({ password, email }) => {
+    try {
+      await mestoAuth
+        .register({ password, email });
+      handleLogin({ password, email });
+      success();
+
+    } catch {
+      failure();
+    }
+  };
+
+
+
+
 
   const signOut = () => {
     localStorage.removeItem("token");
@@ -234,22 +191,30 @@ function App() {
     history.push("/sign-in");
   };
 
-  useEffect(() => {
-    tokenCheck();
-  }, []);
+
 
   useEffect(() => {
-    Promise.all([api.getProfile(), api.getInitialCards()])
-      .then(([user, cards]) => {
-        tokenCheck();
-        history.push("/");
-        setCards(cards.reverse());
-      })
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      });
-    // eslint-disable-next-line
-  }, [loggedIn]);
+    localStorage.getItem("token") ?
+      Promise.all([api.getProfile(), api.getInitialCards()])
+        .then(([user, cards]) => {
+
+          setUserEmail(user.email)
+          setCurrentUser(user)
+          setCards(cards.reverse())
+
+
+
+          // setLoggedIn(true)
+        })
+
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`)
+        }) :
+      signOut()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isInfoTooltipOpen])
+
+
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -275,14 +240,22 @@ function App() {
             </ProtectedRoute>
 
             <Route path="/sign-up">
-              <Register handleRegister={handleRegister} />
+              {!loggedIn ? (
+                <Register handleRegister={handleRegister} />
+              ) : (
+                <Redirect exact to="/" />
+              )}
             </Route>
 
             <Route path="/sign-in">
-              <Login handleLogin={handleLogin} />
+              {!loggedIn ? (
+                <Login handleLogin={handleLogin} />
+              ) : (
+                <Redirect exact to="/" />
+              )}
             </Route>
 
-            <Route>
+            <Route path='*'>
               {loggedIn ? (
                 <Redirect exact to="/" />
               ) : (
@@ -318,7 +291,9 @@ function App() {
 
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
           <InfoTooltip
-            image={changeImage()}
+
+            image={registered ? yesSymbol : noSymbol}
+            // {changeImage()}
             isOpen={isInfoTooltipOpen}
             onClose={closeAllPopups}
           />
@@ -330,12 +305,3 @@ function App() {
 
 export default App;
 
-/////////////////////////////////////// замечание ревьюера//////////////////////////////////////////////////
-// После успешной регистрации нужно перекинуть пользователя на страницу входа, или выполнить вход в аккаунт
-// НАДО ИСПРАВИТЬ
-//
-// Roland Sallatc
-// ревьюер
-
-//////////////////////////////////////////////ответ///////////////////////////////////////////////////////////////
-// После успешной регистрации открывается попап success, а после закрытия попапа переход на страницу входа

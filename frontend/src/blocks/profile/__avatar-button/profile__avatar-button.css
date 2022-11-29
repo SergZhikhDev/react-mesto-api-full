@@ -5,14 +5,14 @@
   border: none;
   height: 120px;
   width: 120px;
-  position: absolute;
+  position: relative;
 }
 
 .profile__avatar-button:hover{
-  background-color: rgba(0,0,0,0.6);
+  /* background-color: rgba(0,0,0,0.6); */
   opacity: .7;
-  background-image: url(../../../images/PenForAvatar.svg);
+  /* background-image: url(../../../images/PenForAvatar.svg);
   background-position: center;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
   cursor: pointer;
 }

@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useContext } from "react";
 import Card from "./Card";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
@@ -16,17 +17,25 @@ function Main({
   return (
     <main className="content">
       <section className="profile">
-        <img
-          className="profile__avatar"
-          src={currentUser.avatar}
-          alt="фотография пользователя"
-        />
+
 
         <button
           type="button"
           className="openPopupBtn  profile__avatar-button"
           onClick={onEditAvatar}
-        ></button>
+        > <img
+            className="profile__avatar"
+            src={currentUser.avatar}
+            alt="фотография пользователя"
+          />
+           <div
+            className="profile__avatar_edit-sign"
+         
+          />
+          </button>
+
+
+
 
         <div className="profile-info">
           <h1 className="profile-info__userName">{currentUser.name}</h1>

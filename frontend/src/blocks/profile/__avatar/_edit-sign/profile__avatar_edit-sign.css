@@ -1,0 +1,12 @@
+.profile__avatar_edit-sign{
+    margin: 0;
+    padding: 0;
+    background-color: rgba(0,0,0,0);
+    border: none;
+    height: 120px;
+    width: 120px;
+    background-image: url(../../../../images/PenForAvatar.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+}

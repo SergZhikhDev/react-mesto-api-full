@@ -1,4 +1,5 @@
 .popup__container {
+  padding-bottom: 60px;
   position: relative;
   width: 430px;
   background: #ffffff;
@@ -11,6 +12,7 @@ align-items: center;
 
 @media screen and (max-width: 501px) {
   .popup__container {
+    padding-bottom: 22px;
     width: 282px;
 
   }

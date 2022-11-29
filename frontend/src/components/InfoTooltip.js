@@ -9,9 +9,12 @@ function InfoTooltip({ image, isOpen, onClose }) {
           type="reset"
           className="popup__close"
           onClick={onClose}
+          
         ></button>
         <img className="popup__image" src={image.symbol} alt='' />
         <p className="popup__message">{image.text}</p>
+        <p className="popup__message_subtitle">{image.subtitle}</p>
+
       </div>
     </div>
   );
